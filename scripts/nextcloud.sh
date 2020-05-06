@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-#set -e
+
+set -e
 
 web_user="apache"
 web_user_home="/usr/share/httpd"
