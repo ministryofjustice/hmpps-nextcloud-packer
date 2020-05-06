@@ -25,7 +25,6 @@
       "type": "shell",
       "script": "scripts/nextcloud.sh"
     },
-  ],
   "builders": [
     {
       "type": "amazon-ebs",
