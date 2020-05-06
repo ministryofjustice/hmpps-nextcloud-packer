@@ -58,6 +58,12 @@ pipeline {
             }
         }
 
+        stage('Verify Nextcloud AMIS') {
+            parallel {
+                stage('Verify Nextcloud') { steps { script {verify_image('nextcloud_centos.json')}}}
+            }
+        }
+
         stage('Build Nextcloud AMI') {
             parallel {
                 stage('Build Nextcloud') { steps { script {build_image('nextcloud_centos.json')}}}
