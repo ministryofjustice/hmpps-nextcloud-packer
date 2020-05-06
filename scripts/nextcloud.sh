@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
-sudo cp /usr/share/zoneinfo/Europe/London /etc/localtime
+#set -e
 
 web_user="apache"
 web_user_home="/usr/share/httpd"
@@ -12,30 +11,31 @@ INSTALLER_URL="https://download.nextcloud.com/server/releases/nextcloud-16.0.3.z
 ZIPPED_INSTALLER="nextcloud-16.0.3.zip"
 DATA_DIR="/var/nextcloud/data"
 INSTALLER_USER="installer_user"
-echo "installing"
-yum -y install epel-release yum-utils
-yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-yum -y install unzip
 
-yum-config-manager --disable remi-php54
-yum-config-manager --enable remi-php73
+sudo cp /usr/share/zoneinfo/Europe/London /etc/localtime
+sudo yum -y install epel-release yum-utils
+sudo yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+sudo yum -y install unzip
 
-yum -y install httpd php php-cli php-mysqlnd php-zip php-devel php-gd php-mcrypt php-mbstring php-curl php-xml php-pear php-bcmath php-json php-pdo php-pecl-apcu php-pecl-apcu-devel php-intl php71-php-pecl-imagick php-ldap redis php-pecl-redis zip mariadb samba samba-client samba-common
-systemctl enable httpd smb.service
+sudo yum-config-manager --disable remi-php54
+sudo yum-config-manager --enable remi-php73
 
-curl $INSTALLER_URL --output $ZIPPED_INSTALLER
-unzip $ZIPPED_INSTALLER
-rm -f *.zip
+sudo yum -y install httpd php php-cli php-mysqlnd php-zip php-devel php-gd php-mcrypt php-mbstring php-curl php-xml php-pear php-bcmath php-json php-pdo php-pecl-apcu php-pecl-apcu-devel php-intl php71-php-pecl-imagick php-ldap redis php-pecl-redis zip mariadb samba samba-client samba-common
+sudo systemctl enable httpd smb.service
 
-mv nextcloud/ /var/www/html/
+sudo curl $INSTALLER_URL --output $ZIPPED_INSTALLER
+sudo unzip $ZIPPED_INSTALLER
+sudo rm -f *.zip
 
-mkdir -p $DATA_DIR
-chown -R $web_user:$web_user $DATA_DIR
-chown -R $web_user:$web_user $NEXT_CLOUD_DIR
+sudo mv nextcloud/ /var/www/html/
+
+sudo mkdir -p $DATA_DIR
+sudo chown -R $web_user:$web_user $DATA_DIR
+sudo chown -R $web_user:$web_user $NEXT_CLOUD_DIR
 
 temp_data_dir="/var/tmp/nextcloud/data"
-mkdir -p $temp_data_dir
-chown $web_user:$web_user $temp_data_dir
+sudo mkdir -p $temp_data_dir
+sudo chown $web_user:$web_user $temp_data_dir
 cd $NEXT_CLOUD_DIR
 $sudo_cmd -u $web_user php $occ_cmd maintenance:install --database "sqlite" --admin-user "$INSTALLER_USER" --admin-pass "$INSTALLER_USER" --data-dir "/var/tmp/nextcloud/data"
 
