@@ -12,7 +12,7 @@ INSTALLER_URL="https://download.nextcloud.com/server/releases/nextcloud-16.0.3.z
 ZIPPED_INSTALLER="nextcloud-16.0.3.zip"
 DATA_DIR="/var/nextcloud/data"
 INSTALLER_USER="installer_user"
-
+echo "installing"
 yum -y install epel-release yum-utils
 yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum -y install unzip
