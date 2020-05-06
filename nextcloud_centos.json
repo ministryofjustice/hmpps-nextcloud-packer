@@ -1,9 +1,9 @@
 {
   "variables": {
     "packer_profile": "packer",
-    "branch_name": "{{env 'BRANCH_NAME'}}",
-    "target_env": "{{env 'TARGET_ENV'}}",
-    "artifact_bucket": "{{env 'ARTIFACT_BUCKET'}}"
+    "branch_name": "{{env `BRANCH_NAME`}}",
+    "target_env": "{{env `TARGET_ENV`}}",
+    "artifact_bucket": "{{env `ARTIFACT_BUCKET`}}"
   },
   "provisioners": [
     {
@@ -15,9 +15,9 @@
       "type": "shell",
       "inline": [
         "echo \"PackerBuildName: ${PACKER_BUILD_NAME}\" >> /opt/meta-data/ami.meta",
-        "PACKER_SOURCE_AMI_ID='curl -S http://169.254.169.254/latest/meta-data/ami-id'",
+        "PACKER_SOURCE_AMI_ID=`curl -S http://169.254.169.254/latest/meta-data/ami-id`",
         "echo \"SourceAMIId: $PACKER_SOURCE_AMI_ID\" >> /opt/meta-data/ami.meta",
-        "echo \"UpdateDateTime: 'date'\" >> /opt/meta-data/ami.meta",
+        "echo \"UpdateDateTime: `date`\" >> /opt/meta-data/ami.meta",
         "echo \"\n\" >> /opt/meta-data/ami.meta"
       ]
     },
@@ -58,13 +58,13 @@
       "subnet_id": "subnet-00982fba28419ac5f",
       "ssh_username": "centos",
       "temporary_security_group_source_cidr": "10.0.0.0/8",
-      "ami_name": "HMPPS Nextcloud {{user 'branch_name'}} {{timestamp}}",
-      "iam_instance_profile": "tf-eu-west-2-hmpps-eng-{{user 'target_env'}}-jenkins-ec2-slave-role-instance-profile",
+      "ami_name": "HMPPS Nextcloud {{user `branch_name`}} {{timestamp}}",
+      "iam_instance_profile": "tf-eu-west-2-hmpps-eng-{{user `target_env`}}-jenkins-ec2-slave-role-instance-profile",
       "tags": {
         "OS_Version": "Centos7",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "Base_AMI_ID": "{{ .SourceAMI }}",
-        "Name": "HMPPS Nextcloud {{user 'branch_name'}} {{timestamp}}"
+        "Name": "HMPPS Nextcloud {{user `branch_name`}} {{timestamp}}"
       },
       "launch_block_device_mappings": [
         {
