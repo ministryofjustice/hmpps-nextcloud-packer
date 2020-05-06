@@ -1,0 +1,79 @@
+{
+  "variables": {
+    "packer_profile": "packer",
+    "branch_name": "{{env `BRANCH_NAME`}}",
+    "target_env": "{{env `TARGET_ENV`}}",
+    "artifact_bucket": "{{env `ARTIFACT_BUCKET`}}"
+  },
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./meta/nextcloud_centos.json_meta.json",
+      "destination": "/opt/meta-data/nextcloud_centos.json"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "echo \"PackerBuildName: ${PACKER_BUILD_NAME}\" >> /opt/meta-data/ami.meta",
+        "PACKER_SOURCE_AMI_ID=`curl -S http://169.254.169.254/latest/meta-data/ami-id`",
+        "echo \"SourceAMIId: $PACKER_SOURCE_AMI_ID\" >> /opt/meta-data/ami.meta",
+        "echo \"UpdateDateTime: `date`\" >> /opt/meta-data/ami.meta",
+        "echo \"\n\" >> /opt/meta-data/ami.meta"
+      ]
+    },
+    {
+      "type": "shell",
+      "script": "scripts/nextcloud.sh"
+    },
+  ],
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "eu-west-2",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "architecture": "x86_64",
+          "name": "HMPPS Base CentOS master *",
+          "root-device-type": "ebs"
+        },
+        "owners": ["895523100917"],
+        "most_recent": true
+      },
+      "instance_type": "t2.micro",
+      "ami_regions": ["eu-west-2"],
+      "ami_users": [
+          "895523100917",
+          "130975965028",
+          "205048117103",
+          "010587221707",
+          "050243167760",
+          "077643444046",
+          "479759138745",
+          "349354156492",
+          "479759138745"
+      ],
+      "ssh_interface": "private_ip",
+      "vpc_id": "vpc-02321f288159e5d0e",
+      "subnet_id": "subnet-00982fba28419ac5f",
+      "ssh_username": "centos",
+      "temporary_security_group_source_cidr": "10.0.0.0/8",
+      "ami_name": "HMPPS Nextcloud {{user `branch_name`}} {{timestamp}}",
+      "iam_instance_profile": "tf-eu-west-2-hmpps-eng-{{user `target_env`}}-jenkins-ec2-slave-role-instance-profile",
+      "tags": {
+        "OS_Version": "Centos7",
+        "Base_AMI_Name": "{{ .SourceAMIName }}",
+        "Base_AMI_ID": "{{ .SourceAMI }}",
+        "Name": "HMPPS Nextcloud {{user `branch_name`}} {{timestamp}}"
+      },
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 50,
+          "delete_on_termination": true,
+          "encrypted": true
+        }
+      ]
+    }
+  ]
+}
