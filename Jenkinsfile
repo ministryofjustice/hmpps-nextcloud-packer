@@ -60,7 +60,7 @@ pipeline {
 
         stage('Build Nextcloud AMI') {
             parallel {
-                stage('Build Centos Nextcloud') { steps { script {build_image('nextcloud_centos.json')}}}
+                stage('Build Nextcloud') { steps { script {build_image('nextcloud_centos.json')}}}
             }
         }
     }
