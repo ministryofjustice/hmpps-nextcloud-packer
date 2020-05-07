@@ -4,7 +4,7 @@
         #!/usr/env/bin bash
         set +x
         docker run --rm \
-        -e GIT_BRANCH,fullName=false \
+        -e BRANCH_NAME \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
@@ -27,7 +27,7 @@ def build_image(filename) {
 
         set +x
         docker run --rm \
-        -e GIT_BRANCH,fullName=false \
+        -e BRANCH_NAME \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
