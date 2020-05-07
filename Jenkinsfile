@@ -1,10 +1,12 @@
+def BRANCH_NAME = "${GIT_BRANCH#*}"
+
 def verify_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh '''
         #!/usr/env/bin bash
         set +x
         docker run --rm \
-        -e GIT_BRANCH#* \
+        -e ${BRANCH_NAME} \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
@@ -27,7 +29,7 @@ def build_image(filename) {
 
         set +x
         docker run --rm \
-        -e GIT_BRANCH#* \
+        -e ${BRANCH_NAME} \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
