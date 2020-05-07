@@ -4,7 +4,7 @@ def verify_image(filename) {
         #!/usr/env/bin bash
         set +x
         docker run --rm \
-        -e GIT_LOCAL_BRANCH \
+        -e BRANCH_NAME \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
@@ -17,6 +17,7 @@ def verify_image(filename) {
 def build_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh """
+        export BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
         #!/usr/env/bin bash
         virtualenv venv_${filename}
         . venv_${filename}/bin/activate
@@ -27,7 +28,7 @@ def build_image(filename) {
 
         set +x
         docker run --rm \
-        -e GIT_LOCAL_BRANCH \
+        -e BRANCH_NAME \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
