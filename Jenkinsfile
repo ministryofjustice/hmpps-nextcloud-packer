@@ -58,7 +58,7 @@ pipeline {
             }
         }
 
-        stage('Verify Nextcloud AMIS') {
+        stage('Verify Nextcloud AMI') {
             parallel {
                 stage('Verify Nextcloud') { steps { script {verify_image('nextcloud_centos.json')}}}
             }
