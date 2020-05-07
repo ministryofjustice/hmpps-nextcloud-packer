@@ -1,13 +1,4 @@
-def getCurrentBranch() {
-    return sh (
-        script: 'git rev-parse --abbrev-ref HEAD',
-        returnStdout: true
-    ).trim()
-}
-
-def BRANCH_NAME = getCurrentBranch()
-
-def verify_image(filename) {
+ def verify_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh '''
         #!/usr/env/bin bash
@@ -27,6 +18,7 @@ def build_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh """
         #!/usr/env/bin bash
+        BRANCH_NAME=${GIT_BRANCH,fullName=false}
         virtualenv venv_${filename}
         . venv_${filename}/bin/activate
         pip install -r requirements.txt
