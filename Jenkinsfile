@@ -4,7 +4,7 @@ def verify_image(filename) {
         #!/usr/env/bin bash
         set +x
         docker run --rm \
-        -e BRANCH_NAME \
+        -e GIT_BRANCH \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
@@ -24,11 +24,10 @@ def build_image(filename) {
         python generate_metadata.py ${filename}
         deactivate
         rm -rf venv_${filename}
-        git rev-parse --abbrev-ref HEAD
 
         set +x
         docker run --rm \
-        -e BRANCH_NAME \
+        -e GIT_BRANCH \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
