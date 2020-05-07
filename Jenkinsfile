@@ -4,7 +4,7 @@
         #!/usr/env/bin bash
         set +x
         docker run --rm \
-        -e BRANCH_NAME \
+        -e GIT_BRANCH,fullName=false \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
@@ -18,7 +18,6 @@ def build_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh """
         #!/usr/env/bin bash
-        export BRANCH_NAME=GIT_BRANCH,fullName=false
         virtualenv venv_${filename}
         . venv_${filename}/bin/activate
         pip install -r requirements.txt
@@ -28,7 +27,7 @@ def build_image(filename) {
 
         set +x
         docker run --rm \
-        -e BRANCH_NAME \
+        -e GIT_BRANCH,fullName=false \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \

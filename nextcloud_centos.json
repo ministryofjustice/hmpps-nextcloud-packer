@@ -1,7 +1,7 @@
 {
   "variables": {
     "packer_profile": "packer",
-    "branch_name": "{{env `BRANCH_NAME`}}",
+    "branch_name": "{{env `GIT_BRANCH,fullName=false`}}",
     "target_env": "{{env `TARGET_ENV`}}",
     "artifact_bucket": "{{env `ARTIFACT_BUCKET`}}"
   },
