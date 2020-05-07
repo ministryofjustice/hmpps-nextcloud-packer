@@ -21,7 +21,7 @@ def build_image(filename) {
         virtualenv venv_${filename}
         . venv_${filename}/bin/activate
         pip install -r requirements.txt
-        python generate_metadata.py ${filename}
+        python generate_metadata.py \${filename}
         deactivate
         rm -rf venv_\${filename}
 
