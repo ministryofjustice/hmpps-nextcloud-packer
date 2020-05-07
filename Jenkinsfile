@@ -24,7 +24,7 @@ def build_image(filename) {
         python generate_metadata.py ${filename}
         deactivate
         rm -rf venv_${filename}
-        export BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+        git rev-parse --abbrev-ref HEAD
 
         set +x
         docker run --rm \
