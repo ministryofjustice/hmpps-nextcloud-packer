@@ -1,4 +1,4 @@
-def BRANCH_NAME = "${GIT_BRANCH}"
+def BRANCH_NAME = "GIT_BRANCH"
 
 def verify_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
