@@ -23,7 +23,7 @@ def build_image(filename) {
         pip install -r requirements.txt
         python generate_metadata.py ${filename}
         deactivate
-        rm -rf venv_${filename}
+        rm -rf venv_\${filename}
 
         set +x
         docker run --rm \
