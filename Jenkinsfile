@@ -1,11 +1,11 @@
-def BRANCH_NAME = getCurrentBranch()
-
-def getCurrentBranch () {
+def getCurrentBranch() {
     return sh (
-        script: 'git rev-parse --abbrev-ref HEAD',
+        script: `git rev-parse --abbrev-ref HEAD`,
         returnStdout: true
     ).trim()
 }
+
+def BRANCH_NAME = getCurrentBranch()
 
 def verify_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
