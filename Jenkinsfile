@@ -18,8 +18,8 @@ def build_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh """
         #!/usr/env/bin bash
-        virtualenv venv_${filename}
-        . venv_${filename}/bin/activate
+        virtualenv venv_\${filename}
+        . venv_\${filename}/bin/activate
         pip install -r requirements.txt
         python generate_metadata.py \${filename}
         deactivate
