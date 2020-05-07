@@ -34,7 +34,7 @@ def build_image(filename) {
         -v `pwd`:/home/tools/data \
         mojdigitalstudio/hmpps-packer-builder \
         bash -c 'ansible-galaxy install -r ansible/requirements.yml; \
-        env | sort ; \
+        export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)" ; \
         PACKER_VERSION=`packer --version` USER=`whoami` packer build ${filename}'
         rm ./meta/${filename}_meta.json
         """
@@ -53,11 +53,11 @@ pipeline {
     }
 
     stages {
-        stage ('Notify build started') {
+    /*    stage ('Notify build started') {
             steps {
                 slackSend(message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL.replace(':8080','')}|Open>)")
             }
-        }
+        } */
 
         stage('Verify Nextcloud AMI') {
             parallel {
@@ -76,11 +76,11 @@ pipeline {
         always {
             deleteDir()
         }
-        success {
+        /*success {
             slackSend(message: "Build completed - ${env.JOB_NAME} ${env.BUILD_NUMBER}", color: 'good')
         }
         failure {
             slackSend(message: "Build failed - ${env.JOB_NAME} ${env.BUILD_NUMBER}", color: 'danger')
-        }
+        } */
     }
 }
