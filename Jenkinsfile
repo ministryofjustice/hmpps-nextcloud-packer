@@ -1,10 +1,20 @@
+def BRANCH_NAME = getCurrentBranch()
+echo 'My branch is' + BRANCH_NAME
+
+def getCurrentBranch () {
+    return sh (
+        script: 'git rev-parse --abbrev-ref HEAD',
+        returnStdout: true
+    ).trim()
+}
+
 def verify_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh '''
         #!/usr/env/bin bash
         set +x
         docker run --rm \
-        -e env.BRANCH_NAME \
+        -e BRANCH_NAME \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
@@ -27,7 +37,7 @@ def build_image(filename) {
 
         set +x
         docker run --rm \
-        -e env.BRANCH_NAME \
+        -e BRANCH_NAME \
         -e TARGET_ENV \
         -e ARTIFACT_BUCKET \
         -e ZAIZI_BUCKET \
