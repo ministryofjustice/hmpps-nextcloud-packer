@@ -1,5 +1,4 @@
 def BRANCH_NAME = getCurrentBranch()
-echo 'My branch is' + BRANCH_NAME
 
 def getCurrentBranch () {
     return sh (
