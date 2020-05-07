@@ -17,7 +17,7 @@ def verify_image(filename) {
 def build_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh """
-        export BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+        export BRANCH_NAME=env.BRANCH_NAME
         #!/usr/env/bin bash
         virtualenv venv_${filename}
         . venv_${filename}/bin/activate
