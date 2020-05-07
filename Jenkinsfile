@@ -18,7 +18,7 @@ def build_image(filename) {
     wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'XTerm']) {
         sh """
         #!/usr/env/bin bash
-        BRANCH_NAME=${GIT_BRANCH,fullName=false}
+        BRANCH_NAME=GIT_BRANCH,fullName=false
         virtualenv venv_${filename}
         . venv_${filename}/bin/activate
         pip install -r requirements.txt
