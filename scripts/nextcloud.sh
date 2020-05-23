@@ -26,3 +26,5 @@ sudo mv nextcloud/ /var/www/html/
 sudo mkdir -p $DATA_DIR
 sudo chown -R $web_user:$web_user $DATA_DIR
 sudo chown -R $web_user:$web_user $NEXT_CLOUD_DIR
+
+sudo sed -i 's/memory_limit = 128M/memory_limit = 513M/' /etc/php.ini
