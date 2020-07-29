@@ -19,7 +19,7 @@ function set_git_latest_master_tag() {
     echo '----------------------------------------------'
     echo "Setting IMAGE_TAG_VERSION"
     echo '----------------------------------------------'
-    export IMAGE_TAG_VERSION=$(curl -s https://api.github.com/repos/ministryofjustice/hmpps-base-packer/tags | jq -r '.[0].name')
+    export IMAGE_TAG_VERSION=$(curl -s https://api.github.com/repos/ministryofjustice/hmpps-nextcloud-packer/tags | jq -r '.[0].name')
     echo "Set IMAGE_TAG_VERSION to '$IMAGE_TAG_VERSION'"
 }
 
