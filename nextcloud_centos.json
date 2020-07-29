@@ -3,7 +3,8 @@
     "packer_profile": "packer",
     "branch_name": "{{env `BRANCH_NAME`}}",
     "target_env": "{{env `TARGET_ENV`}}",
-    "artifact_bucket": "{{env `ARTIFACT_BUCKET`}}"
+    "artifact_bucket": "{{env `ARTIFACT_BUCKET`}}",
+    "codebuild": "{{env `CODEBUILD`}}"
   },
   "provisioners": [
     {
@@ -61,20 +62,22 @@
       "ami_name": "HMPPS Nextcloud {{user `branch_name`}} {{timestamp}}",
       "iam_instance_profile": "tf-eu-west-2-hmpps-eng-{{user `target_env`}}-jenkins-ec2-slave-role-instance-profile",
       "tags": {
-        "OS_Version": "Centos7",
+        "OS_Version": "CentOS Linux 7",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "Base_AMI_ID": "{{ .SourceAMI }}",
         "Name": "HMPPS Nextcloud {{user `branch_name`}} {{timestamp}}",
         "Git_Branch": "{{user `branch_name`}}",
-        "source-code": "https://github.com/ministryofjustice/hmpps-nextcloud-packer"
+        "source-code": "https://github.com/ministryofjustice/hmpps-nextcloud-packer",
+        "Codebuild": "{{user `codebuild`}}"
       },
       "run_volume_tags": {
-        "OS_Version": "Centos7",
+        "OS_Version": "CentOS Linux 7",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "Base_AMI_ID": "{{ .SourceAMI }}",
         "Name": "HMPPS Nextcloud {{user `branch_name`}} {{timestamp}}",
         "Git_Branch": "{{user `branch_name`}}",
-        "source-code": "https://github.com/ministryofjustice/hmpps-nextcloud-packer"
+        "source-code": "https://github.com/ministryofjustice/hmpps-nextcloud-packer",
+        "Codebuild": "{{user `codebuild`}}"
       },
       "launch_block_device_mappings": [
         {
