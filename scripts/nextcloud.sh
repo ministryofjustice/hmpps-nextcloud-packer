@@ -4,8 +4,9 @@ set -e
 
 web_user="apache"
 NEXT_CLOUD_DIR="/var/www/html/nextcloud"
-INSTALLER_URL="https://download.nextcloud.com/server/releases/nextcloud-16.0.3.zip"
-ZIPPED_INSTALLER="nextcloud-16.0.3.zip"
+NEXTCLOUD_VERSION="20.0.0"
+INSTALLER_URL="https://download.nextcloud.com/server/releases/nextcloud-$NEXTCLOUD_VERSION.zip"
+ZIPPED_INSTALLER="nextcloud-$NEXTCLOUD_VERSION.zip"
 DATA_DIR="/var/nextcloud/data"
 
 sudo cp /usr/share/zoneinfo/Europe/London /etc/localtime
