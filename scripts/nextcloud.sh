@@ -16,7 +16,7 @@ sudo yum -y install unzip
 
 sudo yum-config-manager --disable remi-php54
 sudo yum-config-manager --enable remi-php73
-sudo yum -y install httpd php php-cli php-mysqlnd php-zip php-devel php-gd php-mcrypt php-mbstring php-curl php-xml php-pear php-bcmath php-json php-pdo php-pecl-apcu php-pecl-apcu-devel php-intl php71-php-pecl-imagick php-ldap redis php-pecl-redis zip mariadb samba samba-client samba-common
+sudo yum -y install httpd php php-cli php-mysqlnd php-zip php-devel php-gd php-mcrypt php-mbstring php-curl php-xml php-pear php-bcmath php-json php-pdo php-pecl-apcu php-pecl-apcu-devel php-intl php71-php-pecl-imagick php-ldap redis php-pecl-redis zip mariadb samba samba-client samba-common php-pecl-zendopcache  php-gmp  php-imagick
 sudo systemctl enable httpd smb.service
 
 sudo curl $INSTALLER_URL --output $ZIPPED_INSTALLER
